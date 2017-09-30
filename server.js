@@ -1,11 +1,19 @@
-var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000;
+var express    = require('express');
+var app        = express();
+var bodyParser = require('body-parser');
 
-app.get('/', function (req, res) {
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var port = process.env.PORT || 3000;
+
+var router = express.Router();
+
+router.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.listen(port);
+app.use('/', router);
 
+app.listen(port);
 console.log('server started on: ' + port);
