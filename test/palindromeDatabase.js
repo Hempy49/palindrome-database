@@ -25,9 +25,8 @@ describe('PalindromeDatabase', function() {
   });
 
   describe('#storePalindrome', function() {
-    it('saves the palindrome in an array', function() {
-      palindromeDatabase.storePalindrome('eve')
-      expect(palindromeDatabase.getPalindromes()).to.include('eve')
+    it('saves the palindrome in an array and returns the saved palindrome', function() {
+      expect(palindromeDatabase.storePalindrome('eve')).to.equal('eve')
     });
   });
 });
