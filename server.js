@@ -10,7 +10,7 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 
 router.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.json({ message: 'Hello World!' });
 });
 
 app.use('/', router);
