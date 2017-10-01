@@ -1,16 +1,16 @@
 var chai = require('chai');
 var expect = chai.expect;
-var PalindromeDatabase = require("../app/models/palindromeDatabase")
+var PalindromeDatabase = require('../app/models/palindromeDatabase')
 
 describe('PalindromeDatabase', function() {
 
   palindromeDatabase = new PalindromeDatabase();
 
-  describe('#getPalindromes', function() {
-    it("returns the stored palindromes", function () {
+  describe('#getFilteredPalindromes', function() {
+    it('returns the filtered stored palindromes', function () {
       palindromeDatabase.storePalindrome('ABBA');
       palindromeDatabase.storePalindrome('mom');
-      expect(palindromeDatabase.getPalindromes()).to.equal(palindromeDatabase._palindromes);
+      expect(palindromeDatabase.getFilteredPalindromes()).to.include('ABBA', 'mom');
     });
   });
 
@@ -25,9 +25,9 @@ describe('PalindromeDatabase', function() {
   });
 
   describe('#storePalindrome', function() {
-    it('saves the palindrome and time as object in an array', function() {
+    it('saves the palindrome with time of creation as object in an array', function() {
       palindromeDatabase.storePalindrome('eve')
-      expect(palindromeDatabase.getPalindromes()[2]).to.include({ palindrome: 'eve' })
+      expect(palindromeDatabase._palindromes.pop()).to.include({ palindrome: 'eve'})
     });
   });
 });
