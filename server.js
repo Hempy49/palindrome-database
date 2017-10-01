@@ -3,6 +3,7 @@ var app        = express();
 var bodyParser = require('body-parser');
 var PalindromeDatabase = require('./app/models/palindromeDatabase');
 var palindromeDatabase = new PalindromeDatabase();
+var isValid = require('./helper');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -17,6 +18,9 @@ router.get('/', function (req, res) {
 
 router.route('/palindromes')
   .post(function(req, res) {
+    if (!isValid(req.body)) {
+      res.status(400).send({ message: 'Input not valid' });
+    }
     var isPalindrome = palindromeDatabase.isPalindrome(req.body.palindrome);
     palindromeDatabase.storePalindrome(req.body.palindrome);
     res.send(isPalindrome);
@@ -25,6 +29,8 @@ router.route('/palindromes')
     palindromes = palindromeDatabase.getFilteredPalindromes();
     res.send(palindromes);
   });
+
+
 
 app.use('/api', router);
 
