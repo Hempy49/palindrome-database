@@ -19,7 +19,11 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "express": "^4.16.1",
     "mocha": "^3.5.3"
+  },
+  "devDependencies": {
+    "timekeeper": "^2.0.0"
   }
 }
