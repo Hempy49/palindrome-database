@@ -16,4 +16,15 @@ describe('Palindromes', function() {
       });
   });
 
+  it('should add one palindrome on /palindromes POST', function() {
+    chai.request(server)
+      .post('/palindromes')
+      .send({'palindrome': 'ABBA'})
+      .end(function(err, res){
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body.SUCCESS).to.be.a('object');
+        done();
+      });
+  });
 });
