@@ -1,6 +1,8 @@
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
+var PalindromeDatabase = require('./app/models/palindromeDatabase');
+var palindromeDatabase = new PalindromeDatabase();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,7 +15,18 @@ router.get('/', function (req, res) {
   res.json({ message: 'Hello World!' });
 });
 
-app.use('/', router);
+router.route('/palindromes')
+  .post(function(req, res) {
+    var isPalindrome = palindromeDatabase.isPalindrome(req.body.palindrome);
+    palindromeDatabase.storePalindrome(req.body.palindrome);
+    res.send(isPalindrome);
+  })
+  .get(function(req, res) {
+    palindromes = palindromeDatabase.getFilteredPalindromes();
+    res.send(palindromes);
+  });
 
-app.listen(port);
+app.use('/api', router);
+
+module.exports = app.listen(port);
 console.log('server started on: ' + port);
