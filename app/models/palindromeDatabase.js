@@ -10,6 +10,7 @@ PalindromeDatabase.prototype.getFilteredPalindromes = function() {
 };
 
 PalindromeDatabase.prototype.isPalindrome = function(input) {
+  input = input.toLowerCase().replace(/[^\w\s]|_/g, '').replace(/\s/g,'');
   return input === this._reverse(input);
 };
 
